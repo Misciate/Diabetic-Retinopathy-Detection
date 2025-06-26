@@ -4,7 +4,7 @@ from PIL import Image
 from tensorflow.keras.models import load_model
 
 # Load the trained model
-model = load_model('drdMbNetV2_40epochs_97.h5')
+model = load_model('mobilenetv2_best.h5')
 
 # Define classes
 classes = ['No diabetic retinopathy', 'Mild diabetic retinopathy', 'Moderate diabetic retinopathy', 'Severe diabetic retinopathy', 'Proliferate diabetic retinopathy']

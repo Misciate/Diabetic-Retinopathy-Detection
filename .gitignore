@@ -1,0 +1,9 @@
+# Bỏ qua thư mục môi trường ảo
+.venv/
+venv/
+
+# Bỏ qua các file tạm, log, cache
+__pycache__/
+*.pyc
+*.pyo
+*.log
