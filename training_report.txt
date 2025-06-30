@@ -1,0 +1,53 @@
+Training Process Report: Diabetic Retinopathy Detection
+
+This report summarizes the key aspects of the model training process for the Diabetic Retinopathy Detection task, as detailed in the Diabetic_Retinopathy_Detection.ipynb notebook.
+
+1. Dataset and Preprocessing
+- Dataset: The model was trained on the "diabetic-retinopathy-resized" dataset.
+- Initial Data: The initial dataset consisted of 35,108 images.
+- Data Balancing: The original dataset was imbalanced. To address this, random undersampling was applied to create a more balanced dataset for training.
+- Resampled Data: After undersampling, the dataset was reduced to a total of 3,704 images.
+- Data Splitting: The balanced dataset was split into training and validation sets:
+  - Training Images: 2,963 (80%)
+  - Validation/Testing Images: 741 (20%)
+
+👉 Initial Data: There were originally over 35,000 images, but these images did not have an even amount of each disease level (some classes had too many images, others too few).
+
+👉 Data Balancing: Because of this imbalance, they randomly removed some images from the big classes so that all classes had similar amounts — this is called “random undersampling.”
+
+👉 Resampled Data: After balancing, only 3,704 images remained.
+
+👉 Data Splitting: They then split these images into a training set (80%, about 2,963 images) and a validation/testing set (20%, about 741 images) so they could measure how well the model performs on new data.
+
+2. Model Architecture
+- Architecture: The model utilizes a MobileNetV2 architecture, pre-trained on the ImageNet dataset.
+- Transfer Learning: The convolutional base of the pre-trained MobileNetV2 was used, and its layers were frozen. A new classification head was added and trained on the retinopathy dataset. This head consists of a GlobalAveragePooling2D layer, a Dense layer with 1024 units, a Dropout layer, and a final Dense layer with a softmax activation for classification.
+
+👉 Architecture: They used MobileNetV2, which is a lightweight, efficient neural network that was already trained on millions of images from a big dataset called ImageNet.
+
+👉 Transfer Learning: They reused this MobileNetV2 and kept its “knowledge” by freezing its layers (not changing them), then added new layers on top to teach it about diabetic retinopathy.
+
+👉 New Head: These added layers include a layer that averages features (GlobalAveragePooling2D), a big dense (fully connected) layer with 1024 neurons, a Dropout layer to help prevent overfitting, and finally a dense layer with softmax activation to predict which stage of diabetic retinopathy the image belongs to.
+
+3. Training Details
+- Epochs: The model was trained for a total of 40 epochs.
+- Optimizer: The adam optimizer was used.
+- Loss Function: The sparse_categorical_crossentropy loss function was used, which is suitable for multi-class classification with integer labels.
+
+👉 Epochs: The model was trained for 40 passes through the whole training data. Each pass is called an epoch.
+
+👉 Optimizer: They used “adam,” a popular method that adjusts learning automatically to help the model learn faster and more stably.
+
+👉 Loss Function: They used “sparse categorical crossentropy,” which helps measure how wrong the model is when it predicts multiple classes, especially when the class labels are integer numbers
+
+4. Performance
+- Training Accuracy: The final accuracy on the training dataset was approximately 97%.
+- Validation Accuracy: The final accuracy on the validation dataset was approximately 60.5%.
+👉 Training Accuracy: The model was very good at recognizing images it had already seen (97% accuracy).
+
+👉 Validation Accuracy: However, it did not do nearly as well on new images it had not seen before (only about 60% accuracy).
+
+👉 This usually means the model “memorized” the training data instead of learning general patterns — called overfitting.
+
+Summary of the Training Method
+The project employs a transfer learning approach using the MobileNetV2 architecture. The initial, imbalanced dataset was first balanced using random undersampling. The data was then split into training and validation sets. The model was trained for 40 epochs, with the base MobileNetV2 layers frozen, to classify images into one of five stages of diabetic retinopathy. The significant difference between the high training accuracy and the lower validation accuracy suggests that the model is overfitting to the training data.
